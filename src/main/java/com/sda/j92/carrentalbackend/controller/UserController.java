@@ -3,15 +3,13 @@ package com.sda.j92.carrentalbackend.controller;
 import com.sda.j92.carrentalbackend.model.ApplicationUser;
 import com.sda.j92.carrentalbackend.model.CarRentalOffer;
 import com.sda.j92.carrentalbackend.model.dto.ApplicationUserDto;
+import com.sda.j92.carrentalbackend.model.dto.RegisterApplicationUserDto;
 import com.sda.j92.carrentalbackend.service.ApplicationUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.security.Principal;
@@ -33,5 +31,11 @@ public class UserController {
             return applicationUserService.getLoggedInUserDto(loggedInUserId);
         }
         throw new EntityNotFoundException("Unable to find user.");
+    }
+
+    @CrossOrigin
+    @PostMapping("/register")
+    public void get(@RequestBody RegisterApplicationUserDto dto){
+        applicationUserService.register(dto);
     }
 }
