@@ -2,9 +2,11 @@ package com.sda.j92.carrentalbackend.service;
 
 import com.sda.j92.carrentalbackend.model.ApplicationUser;
 import com.sda.j92.carrentalbackend.model.ApplicationUserRole;
+import com.sda.j92.carrentalbackend.model.dto.ApplicationUserDto;
 import com.sda.j92.carrentalbackend.repository.ApplicationUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -66,5 +68,18 @@ public class ApplicationUserService implements UserDetailsService {
             }
         }
         return false;
+    }
+
+    public ApplicationUserDto getLoggedInUserDto(Long loggedInUserId) {
+        Optional<ApplicationUser> applicationUserOptional = applicationUserRepository.findById(loggedInUserId);
+        if(applicationUserOptional.isPresent()){
+            ApplicationUser applicationUser = applicationUserOptional.get();
+            return ApplicationUserDto.builder()
+                    .id(applicationUser.getId())
+                    .username(applicationUser.getUsername())
+                    .admin(applicationUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet()).contains("ROLE_ADMIN"))
+                    .build();
+        }
+        throw new UsernameNotFoundException("User with username: " + loggedInUserId + " was not found.");
     }
 }
