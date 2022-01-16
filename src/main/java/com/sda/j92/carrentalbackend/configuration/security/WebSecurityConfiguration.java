@@ -18,6 +18,12 @@ import java.util.List;
 
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+//    DONE - Rozróżnianie użytkowników po stronie backendu
+//    Rozróżnianie użytkowników po stronie frontendu (+informacja o uprwanieniach)
+//    (przechowywanie informacji o identyfikatorze gdy pracujemy wewnątrz aplikacji)
+//    (np. ktoś wysyła zapytanie i chcemy wiedzieć jaki jest ID użytkownika który wysłał zapytanie)
+//    Rejestracja użytkowników
+
 
     private ApplicationUserService applicationUserService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
