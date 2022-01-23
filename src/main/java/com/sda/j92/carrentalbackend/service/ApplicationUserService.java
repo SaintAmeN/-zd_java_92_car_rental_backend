@@ -48,7 +48,7 @@ public class ApplicationUserService implements UserDetailsService {
         }
         throw new UsernameNotFoundException("User with username: " + username + " was not found.");
     }
-
+// 519 088 399
     public Optional<Long> getLoggedInUserId(Principal principal){
         if (principal != null){
             log.info("Jesteśmy zalogowani, informacja o użytkowniku: " + principal);
